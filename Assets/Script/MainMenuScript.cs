@@ -26,7 +26,7 @@ public class MainMenuScript : MonoBehaviour {
 		GUI.skin = MainMenuSkin;
 
 		if (GUI.Button (new Rect (Screen.width / 4 - buttonWidth / 2, Screen.height / 1.15f  - buttonHeight / 2, buttonWidth, buttonHeight), "NÍVEL")) {
-			SceneManager.LoadScene(1);
+			SceneManager.LoadScene(2);
 		}
 			
 
@@ -36,11 +36,10 @@ public class MainMenuScript : MonoBehaviour {
 
 		if (GUI.Button (new Rect (Screen.width / 1.34f- buttonWidth / 2, Screen.height / 1.15f - buttonHeight / 2, buttonWidth, buttonHeight), "SAIR")) {
 			Application.Quit();
-		}
+		} 
 
-
-		if (Input.anyKeyDown)
-			SceneManager.LoadScene(1);
+		// if (Input.anyKeyDown)
+		//	SceneManager.LoadScene(1);
 
 	}
 }
