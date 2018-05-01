@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour {
 
-	private int buttonWidth = 200;
+    private int buttonWidth = 120;
 	private int buttonHeight = 50;
 	public Texture fundoTexture;
 	public GUISkin MainMenuSkin;
