@@ -121,7 +121,7 @@ public class GeraGrids : MonoBehaviour
             for (posY = 0; posY < 15; posY++)
             {
                 if (Map[posX, posY] == 1)
-                    Instantiate(ObjetoCard, new Vector3(posX * 0.6f - 8.75f, posY * 0.6f - 3.25f, -0.02f), Quaternion.identity);
+					Instantiate(ObjetoCard, new Vector3(posX * 0.6f - 8.75f, posY * 0.6f - 3.25f, -0.02f), Quaternion.identity);				
             }
         }
     }
