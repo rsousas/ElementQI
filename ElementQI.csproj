@@ -239,6 +239,7 @@
     <Compile Include="Assets\Script\clickCardScript.cs" />
     <Compile Include="Assets\Script\ElementClass.cs" />
     <Compile Include="Assets\Script\GeraGrids.cs" />
+    <Compile Include="Assets\Script\Intro1Script.cs" />
     <Compile Include="Assets\Script\MainMenuScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
