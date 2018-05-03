@@ -55,6 +55,7 @@
      <Compile Include="Assets\Script\clickCardScript.cs" />
      <Compile Include="Assets\Script\ElementClass.cs" />
      <Compile Include="Assets\Script\GeraGrids.cs" />
+     <Compile Include="Assets\Script\Intro1Script.cs" />
      <Compile Include="Assets\Script\MainMenuScript.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

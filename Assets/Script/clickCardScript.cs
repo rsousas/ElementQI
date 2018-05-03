@@ -11,15 +11,7 @@ public class clickCardScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
-		//if (Input.GetMouseButtonDown(0))
-		  //DestroyCard ();
 		
-	}
-
-	private void DestroyCard(){
-
-		Destroy (this.gameObject);
 	}
 
 	void OnMouseDown ()
