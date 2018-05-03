@@ -51,6 +51,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Script\AtomClass.cs" />
+     <Compile Include="Assets\Script\clickCardScript.cs" />
+     <Compile Include="Assets\Script\ElementClass.cs" />
      <Compile Include="Assets\Script\GeraGrids.cs" />
      <Compile Include="Assets\Script\MainMenuScript.cs" />
  <Reference Include="UnityEngine.UI">
