@@ -36,11 +36,22 @@ public class clickCardScript : MonoBehaviour
 	void OnMouseDown ()
 	{		
 		if (elemento > 0) {
-			Level1Script.scores += 1;
+			if (GeraGrids.player) {
+				Level1Script.scoresPlayer1 += 1;
+			} else {
+				Level1Script.scoresPlayer2 += 1;
+			}
+
 			GeraGrids.quantElemento [elemento] = GeraGrids.quantElemento [elemento] - 1;
 
-			if (GeraGrids.quantElemento [elemento] == 0)
-				Debug.Log ("Aqui aparece um questionário");	
+			if (GeraGrids.quantElemento [elemento] == 0) {
+				if (GeraGrids.player) {
+					Debug.Log ("Aqui aparece um questionário para o player 1");	
+				} else {
+					Debug.Log ("Aqui aparece um questionário para o player 2");
+				}
+
+			}
 		}			
 
 		terminou = true;
@@ -62,6 +73,7 @@ public class clickCardScript : MonoBehaviour
 		modalPanel.enabled = true;
 		TestYNC ();
 
+		GeraGrids.player = !GeraGrids.player; 
 		Destroy (this.gameObject);
 	
 	}

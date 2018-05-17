@@ -36,8 +36,11 @@ public class GeraGrids : MonoBehaviour
 	// Até onde o primeiro elemento do elemento completo pode ser instanciado
 	private Vector2[] PosRandElemento;
 
+	// Possui a quantidade de elementos por elemento completo
 	public static int[] quantElemento;
 
+	//Manipula payer
+	public static bool player = true; 
 	// Use this for initialization
 	void Start ()
 	{

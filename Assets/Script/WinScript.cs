@@ -23,7 +23,8 @@ public class WinScript : MonoBehaviour {
 
 		if (GUI.Button (new Rect (Screen.width / 2 - buttoWidth / 2, Screen.height / 2 - buttonHeight / 2, buttoWidth, buttonHeight), "Parabéns você Venceu!!! \n Jogar Novamente?")) {
 
-			Level1Script.scores = 0;
+			Level1Script.scoresPlayer1 = 0;
+			Level1Script.scoresPlayer2 = 0;
 
 			SceneManager.LoadScene(1);
 		}
