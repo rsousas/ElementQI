@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class clickCardScript : MonoBehaviour {
 
-	public int temElemento;
-	public int[] elemento;
+
+public class clickCardScript : MonoBehaviour
+{
+
+	public int i, elemento;
 
 	private ModalPanel modalPanel;
 	private DisplayManager displayManager;
@@ -17,30 +19,37 @@ public class clickCardScript : MonoBehaviour {
 	private UnityAction myNoAction;
 	private UnityAction myCancelAction;
 
+	private bool terminou;
+
 	// Use this for initialization
-	void Start () {
-		elemento = new int[2];	
-	}
+	// void Start ()
+	// {
+		
+	// }
 
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 
 	}
 
 	void OnMouseDown ()
 	{		
-		if (temElemento > 0) {
+		if (elemento > 0) {
 			Level1Script.scores += 1;
-		}
+			GeraGrids.quantElemento [elemento] = GeraGrids.quantElemento [elemento] - 1;
 
-		//vet[temElemento] - 1
-		//vet[temElemento] == 0
+			if (GeraGrids.quantElemento [elemento] == 0)
+				Debug.Log ("Aqui aparece um questionário");	
+		}			
 
-		//vet[i]==0
-		//true
-
-		if (Level1Script.scores == 3)
-			SceneManager.LoadScene(3);
+		terminou = true;
+		for (i = 0; i < GeraGrids.quantElemento.Length; i++)
+			if (GeraGrids.quantElemento [i] != 0)
+				terminou = false;
+		
+		if (terminou)
+			SceneManager.LoadScene (3);
 		
 
 		modalPanel = ModalPanel.Instance ();
@@ -57,29 +66,34 @@ public class clickCardScript : MonoBehaviour {
 	
 	}
 
-	public void SetTemElemento(int el){
-		temElemento = el;
+	public void SetTemElemento (int el)
+	{
+		elemento = el;
 	}
 		
 
 
 
-//  Send to the Modal Panel to set up the Buttons and Functions to call
-public void TestYNC () {
-	modalPanel.Choice ("Do you want to spawn this sphere?", TestYesFunction, TestNoFunction, TestCancelFunction);
-	//      modalPanel.Choice ("Would you like a poke in the eye?\nHow about with a sharp stick?", myYesAction, myNoAction, myCancelAction);
-}
+	//  Send to the Modal Panel to set up the Buttons and Functions to call
+	public void TestYNC ()
+	{
+		modalPanel.Choice ("Do you want to spawn this sphere?", TestYesFunction, TestNoFunction, TestCancelFunction);
+		//      modalPanel.Choice ("Would you like a poke in the eye?\nHow about with a sharp stick?", myYesAction, myNoAction, myCancelAction);
+	}
 
-//  These are wrapped into UnityActions
-void TestYesFunction () {
-	displayManager.DisplayMessage ("Heck yeah! Yup!");
-}
+	//  These are wrapped into UnityActions
+	void TestYesFunction ()
+	{
+		displayManager.DisplayMessage ("Heck yeah! Yup!");
+	}
 
-void TestNoFunction () {
-	displayManager.DisplayMessage ("No way, José!");
-}
+	void TestNoFunction ()
+	{
+		displayManager.DisplayMessage ("No way, José!");
+	}
 
-void TestCancelFunction () {
-	displayManager.DisplayMessage ("I give up!");
-}
+	void TestCancelFunction ()
+	{
+		displayManager.DisplayMessage ("I give up!");
+	}
 }
