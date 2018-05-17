@@ -8,6 +8,7 @@ using UnityEngine.Events;
 public class clickCardScript : MonoBehaviour {
 
 	public int temElemento;
+	public int[] elemento;
 
 	private ModalPanel modalPanel;
 	private DisplayManager displayManager;
@@ -17,9 +18,9 @@ public class clickCardScript : MonoBehaviour {
 	private UnityAction myCancelAction;
 
 	// Use this for initialization
-	//void Start () {
-		
-	//}
+	void Start () {
+		elemento = new int[2];	
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -28,9 +29,15 @@ public class clickCardScript : MonoBehaviour {
 
 	void OnMouseDown ()
 	{		
-		if (temElemento == 1) {
+		if (temElemento > 0) {
 			Level1Script.scores += 1;
 		}
+
+		//vet[temElemento] - 1
+		//vet[temElemento] == 0
+
+		//vet[i]==0
+		//true
 
 		if (Level1Script.scores == 3)
 			SceneManager.LoadScene(3);
@@ -50,8 +57,8 @@ public class clickCardScript : MonoBehaviour {
 	
 	}
 
-	public void Teste(){
-		temElemento = 1;
+	public void SetTemElemento(int el){
+		temElemento = el;
 	}
 		
 

@@ -223,10 +223,19 @@ MonoBehaviour:
   ObjetoGrid: {fileID: 169200, guid: 2b3d0085b9714e347850fdd0c5bf991d, type: 2}
   ObjetoErro: {fileID: 1847328629939238, guid: 596a793bd04d1d74ea3db2fa65e5d04d, type: 2}
   ObjetoCard: {fileID: 1274297270927822, guid: 61afb72c1958c314898cc063522cf215, type: 2}
-  ObjetoElemento: {fileID: 1764621889906854, guid: 0ed37e8929cbf68449c3f9551266b387,
-    type: 2}
+  ObjetoElemento:
+  - {fileID: 1764621889906854, guid: 0ed37e8929cbf68449c3f9551266b387, type: 2}
+  - {fileID: 1999659965181980, guid: 7c80968a5cddf5c44ac3179b16e53a1d, type: 2}
   tamX: 30
   tamY: 15
+  posElemento:
+  - {x: 0, y: 0, z: 1}
+  - {x: 1, y: 0, z: 1}
+  - {x: 2, y: 0, z: 1}
+  - {x: 0, y: 0, z: 2}
+  - {x: 1, y: 0, z: 2}
+  - {x: 1, y: 1, z: 2}
+  - {x: 2, y: 0, z: 2}
 --- !u!114 &379541398
 MonoBehaviour:
   m_ObjectHideFlags: 0

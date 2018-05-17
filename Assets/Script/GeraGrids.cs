@@ -4,46 +4,55 @@ using System.Collections;
 public class GeraGrids : MonoBehaviour
 {
 
-    private int posX, posY;
-	private int i;
+	private int posX, posY;
+	private int i, j;
 
-    private float MapaJogadorX = -8;
-    private float MapaJogadorY = -3;
+	private float MapaJogadorX = -8;
+	private float MapaJogadorY = -3;
 
-    private float MapaAdversarioX = 1;
-    private float MapaAdversarioY = -3;
+	private float MapaAdversarioX = 1;
+	private float MapaAdversarioY = -3;
 
-    private float MapaX, MapaY;
+	private float MapaX, MapaY;
 	private float posIniX = 0.2916f;
 	private float posIniY = 0.1713f;
 
 	private GameObject obj;
 
-    public GameObject ObjetoGrid;
-    public GameObject ObjetoErro;
-    public GameObject ObjetoCard;
-	public GameObject ObjetoElemento;
+	public GameObject ObjetoGrid;
+	public GameObject ObjetoErro;
+	public GameObject ObjetoCard;
+	public GameObject[] ObjetoElemento;
 
 	public int tamX;
 	public int tamY;
-	public int quantElemento;
+	public Vector4[] posElemento;
+	// vetor.x e vetor.y: Posições do elemento na grade; vetor.z: Elemento completo a qual representa; vetor.w: Prefab que deve ser impresso (imagem)
 
-    public ushort[,] Map = new ushort[30, 15];
+	public Vector2[,] Map;
+	// vetor.x: -1=Não imprime na posição, 0=Elemento Erro, 1+=Elemento acerto; vetor.y: Prefab que deve ser impresso (imagem)
 
-    // Use this for initialization
-    void Start()
-    {
+	private Vector2[] MaiorElemento; // Até onde o primeiro elemento do elemento completo pode ser instanciado
+	private Vector2[] PosRandElemento;
+
+	// Use this for initialization
+	void Start ()
+	{
+		Map = new Vector2[tamX, tamY];
+		MaiorElemento = new Vector2[(int)posElemento [posElemento.Length-1].z]; 
+		PosRandElemento = new Vector2[(int)posElemento [posElemento.Length-1].z];
+
 		posIniX = tamX * posIniX;
 		posIniY = tamY * posIniY;
-        gerarGrid();
-        geraFundoErro();
-		geraFundoElemento();
-        geraCard();
-    }
+		gerarGrid ();
+		geraFundoErro ();
+		geraFundoElemento ();
+		geraCard ();
+	}
 
-    void Update()
-    {
-        /*if (Input.GetMouseButtonDown(0))
+	void Update ()
+	{
+		/*if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("Left mouse clicked");
             RaycastHit hit;
@@ -64,9 +73,9 @@ public class GeraGrids : MonoBehaviour
                 }
             }
         }*/
-    }
+	}
 
-  /*  void gerarGrid()
+	/*  void gerarGrid()
     {
         for (posX = 0; posX < 30; posX++)
         {
@@ -139,39 +148,37 @@ public class GeraGrids : MonoBehaviour
         }
     } */
 
-	void gerarGrid()
+	void gerarGrid ()
 	{
-		for (posX = 0; posX < tamX; posX++)
-		{
-			for (posY = 0; posY < tamY; posY++)
-			{
-				Map[posX, posY] = 1;
+		for (posX = 0; posX < tamX; posX++) {
+			for (posY = 0; posY < tamY; posY++) {
+				Map [posX, posY].Set (0, 0);
 			}
 		}
 
-		if ((tamX > 19) && (tamY > 14) ) {
+		if ((tamX > 19) && (tamY > 14)) {
 			// 
 			for (posX = 0; posX < Mathf.Round (tamX * 0.433f); posX++)
-				Map [posX, 0] = 0;
+				Map [posX, 0].Set (-1, -1);
 
 			for (posX = 0; posX < Mathf.Round (tamX * 0.4f); posX++)
-				Map [posX, 1] = 0;
+				Map [posX, 1].Set (-1, -1);
 
 			for (posX = 0; posX < Mathf.Round (tamX * 0.366f); posX++)
-				Map [posX, 2] = 0;
+				Map [posX, 2].Set (-1, -1);
 
 			for (posX = 0; posX < Mathf.Round (tamX * 0.333f); posX++)
-				Map [posX, 3] = 0;
+				Map [posX, 3].Set (-1, -1);
 
 			//
 			for (posX = (int)Mathf.Round (tamX * 0.9f); posX < tamX; posX++)
-				Map [posX, 0] = 0;
+				Map [posX, 0].Set (-1, -1);
 
 			for (posX = (int)Mathf.Round (tamX * 0.933f); posX < tamX; posX++)
-				Map [posX, 1] = 0;
+				Map [posX, 1].Set (-1, -1);
 
 			for (posX = (int)Mathf.Round (tamX * 0.966f); posX < tamX; posX++)
-				Map [posX, 2] = 0;
+				Map [posX, 2].Set (-1, -1);
 
 			// Map[27, 0] = Map[28, 0] = Map[29, 0] = 0;
 			//			  Map[28, 1] = Map[29, 1] = 0;
@@ -179,13 +186,13 @@ public class GeraGrids : MonoBehaviour
 
 			//
 			for (posX = 0; posX < Mathf.Round (tamX * 0.1f); posX++)
-				Map [posX, 4] = 0;
+				Map [posX, 4].Set (-1, -1);
 
 			for (posX = 0; posX < Mathf.Round (tamX * 0.066f); posX++)
-				Map [posX, 5] = 0;
+				Map [posX, 5].Set (-1, -1);
 
 			for (posX = 0; posX < Mathf.Round (tamX * 0.033f); posX++)
-				Map [posX, 6] = 0;
+				Map [posX, 6].Set (-1, -1);
 			
 			// Map[0, 4] = Map[1, 4] = Map[2, 4] = 0;
 			// Map[0, 5] = Map[1, 5] = 0;
@@ -193,13 +200,13 @@ public class GeraGrids : MonoBehaviour
 	
 			//
 			for (posX = (int)Mathf.Round (tamX * 0.966f); posX < tamX; posX++)
-				Map [posX, 8] = 0;
+				Map [posX, 8].Set (-1, -1);
 
 			for (posX = (int)Mathf.Round (tamX * 0.933f); posX < tamX; posX++)
-				Map [posX, 9] = 0;
+				Map [posX, 9].Set (-1, -1);
 
 			for (posX = (int)Mathf.Round (tamX * 0.9f); posX < tamX; posX++)
-				Map [posX, 10] = 0;
+				Map [posX, 10].Set (-1, -1);
 
 			//							  Map[29, 8] = 0;
 			//				 Map[28, 9] = Map[29, 9] = 0;
@@ -207,81 +214,89 @@ public class GeraGrids : MonoBehaviour
 
 			//
 			for (posX = 0; posX < Mathf.Round (tamX * 0.033f); posX++)
-				Map [posX, 12] = 0;
+				Map [posX, 12].Set (-1, -1);
 
 			for (posX = 0; posX < Mathf.Round (tamX * 0.066f); posX++)
-				Map [posX, 13] = 0;
+				Map [posX, 13].Set (-1, -1);
 
 			for (posX = 0; posX < Mathf.Round (tamX * 0.1f); posX++)
-				Map [posX, 14] = 0;
+				Map [posX, 14].Set (-1, -1);
 			
 			// Map[0, 12] = 0;
 			// Map[0, 13] = Map[1, 13] = 0;
 			// Map[0, 14] = Map[1, 14] = Map[2, 14] = 0;
 
 			for (posX = (int)Mathf.Round (tamX * 0.666f); posX < tamX; posX++)
-				Map [posX, 11] = 0;
+				Map [posX, 11].Set (-1, -1);
 
 			for (posX = (int)Mathf.Round (tamX * 0.633f); posX < tamX; posX++)
-				Map [posX, 12] = 0;
+				Map [posX, 12].Set (-1, -1);
 
 			for (posX = (int)Mathf.Round (tamX * 0.6f); posX < tamX; posX++)
-				Map [posX, 13] = 0;
+				Map [posX, 13].Set (-1, -1);
 
 			for (posX = (int)Mathf.Round (tamX * 0.566f); posX < tamX; posX++)
-				Map [posX, 14] = 0;
+				Map [posX, 14].Set (-1, -1);
 		}
+			
+		// Descobre maiores valores em x e y
+		for (i = 0; i < posElemento.Length; i++) {
+			if (MaiorElemento [(int)posElemento [i].z - 1].x < posElemento [i].x)
+				MaiorElemento [(int)posElemento [i].z - 1].Set (posElemento [i].x, MaiorElemento [(int)posElemento [i].z - 1].y);
+			
+			if (MaiorElemento [(int)posElemento [i].z - 1].y < posElemento [i].y)
+				MaiorElemento [(int)posElemento [i].z - 1].Set (MaiorElemento [(int)posElemento [i].z - 1].x, posElemento [i].y);
+		}
+
+		// Descobre posição aleatória inicial do elemento
+		for (i = 0; i < MaiorElemento.Length; i++) 
+			PosRandElemento [i].Set(Random.Range(0,tamX - MaiorElemento [i].x), Random.Range(0,tamY - MaiorElemento [i].y));
+		 
 
 
 		// Mapeia o Elemento
-		for (i = 0; i < quantElemento; i++)
-			for (posX = 5; posX < 8; posX++)
-				Map [posX, 5] = 2;
+		for (i = 0; i < posElemento.Length; i++) 
+			Map [((int)posElemento [i].x + (int)PosRandElemento [(int)posElemento [i].z - 1].x), ((int)posElemento [i].y +(int)PosRandElemento [(int)posElemento [i].z - 1].y)].Set ((int)posElemento [i].z, (int)posElemento [i].w);
+
+		
 
 
-		for (posX = 0; posX < tamX; posX++)
-		{
-			for (posY = 0; posY < tamY; posY++)
-			{
-				if (Map[posX, posY] != 0)
-				Instantiate(ObjetoGrid, new Vector3(posX * 0.6f - posIniX, posY * 0.6f - posIniY, 0), Quaternion.identity);
+		for (posX = 0; posX < tamX; posX++) {
+			for (posY = 0; posY < tamY; posY++) {
+				if (Map [posX, posY].x != -1)
+					Instantiate (ObjetoGrid, new Vector3 (posX * 0.6f - posIniX, posY * 0.6f - posIniY, 0), Quaternion.identity);
 			}
 		}
 	}
 
-	void geraFundoErro()
+	void geraFundoErro ()
 	{
-		for (posX = 0; posX < tamX; posX++)
-		{
-			for (posY = 0; posY < tamY; posY++)
-			{
-				if (Map[posX, posY] == 1)
-					Instantiate(ObjetoErro, new Vector3(posX * 0.6f - posIniX, posY * 0.6f - posIniY, -0.01f), Quaternion.identity);
+		for (posX = 0; posX < tamX; posX++) {
+			for (posY = 0; posY < tamY; posY++) {
+				if (Map [posX, posY].x == 0)
+					Instantiate (ObjetoErro, new Vector3 (posX * 0.6f - posIniX, posY * 0.6f - posIniY, -0.01f), Quaternion.identity);
 			}
 		}
 	}
-	void geraFundoElemento()
+
+	void geraFundoElemento ()
 	{
-		for (posX = 0; posX < tamX; posX++)
-		{
-			for (posY = 0; posY < tamY; posY++)
-			{
-				if (Map[posX, posY] > 1)
-					Instantiate(ObjetoElemento, new Vector3(posX * 0.6f - posIniX, posY * 0.6f - posIniY, -0.01f), Quaternion.identity);
+		for (posX = 0; posX < tamX; posX++) {
+			for (posY = 0; posY < tamY; posY++) {
+				if (Map [posX, posY].x > 0)
+					Instantiate (ObjetoElemento [(int)Map [posX, posY].y], new Vector3 (posX * 0.6f - posIniX, posY * 0.6f - posIniY, -0.01f), Quaternion.identity);
 			}
 		}		
 	}
 
-	void geraCard()
+	void geraCard ()
 	{
-		for (posX = 0; posX < tamX; posX++)
-		{
-			for (posY = 0; posY < tamY; posY++)
-			{
-				if (Map[posX, posY] != 0)
-					obj = (Instantiate(ObjetoCard, new Vector3(posX * 0.6f - posIniX, posY * 0.6f - posIniY, -0.02f), Quaternion.identity)) as GameObject;	
-				if (Map[posX, posY] > 1)		
-					obj.GetComponent<clickCardScript>().Teste();
+		for (posX = 0; posX < tamX; posX++) {
+			for (posY = 0; posY < tamY; posY++) {
+				if (Map [posX, posY].x != -1)
+					obj = (Instantiate (ObjetoCard, new Vector3 (posX * 0.6f - posIniX, posY * 0.6f - posIniY, -0.02f), Quaternion.identity)) as GameObject;	
+				if (Map [posX, posY].x > 0)
+					obj.GetComponent<clickCardScript> ().SetTemElemento ((int)Map [posX, posY].x);
 			}
 		}
 	}
