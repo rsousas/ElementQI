@@ -8,9 +8,13 @@ public class ModalPanel : MonoBehaviour {
 
 	public Text question;
 	public Image iconImage;
-	public Button yesButton;
-	public Button noButton;
-	public Button cancelButton;
+
+	public Button op1Button;
+	public Button op2Button;
+	public Button op3Button;
+	public Button op4Button;
+	public Button op5Button;
+
 	public GameObject modalPanelObject;
 
 	private static ModalPanel modalPanel;
@@ -25,35 +29,41 @@ public class ModalPanel : MonoBehaviour {
 		return modalPanel;
 	}
 
-	// Yes/No/Cancel: A string, a Yes event, a No event and Cancel event
-	public void Choice (string question, UnityAction yesEvent, UnityAction noEvent, UnityAction cancelEvent) {
+	// Options 1-5: A string, a options 1-5 events
+	public void Choice (string question, UnityAction op1Event, UnityAction op2Event, UnityAction op3Event, UnityAction op4Event, UnityAction op5Event) {
 		modalPanelObject.SetActive (true);
 
-		yesButton.onClick.RemoveAllListeners();
-		yesButton.onClick.AddListener (yesEvent);
-		yesButton.onClick.AddListener (ClosePanel);
+		op1Button.onClick.RemoveAllListeners();
+		op1Button.onClick.AddListener (op1Event);
+		op1Button.onClick.AddListener (ClosePanel);
 
-		noButton.onClick.RemoveAllListeners();
-		noButton.onClick.AddListener (noEvent);
-		noButton.onClick.AddListener (ClosePanel);
+		op2Button.onClick.RemoveAllListeners();
+		op2Button.onClick.AddListener (op2Event);
+		op2Button.onClick.AddListener (ClosePanel);
 
-		cancelButton.onClick.RemoveAllListeners();
-		cancelButton.onClick.AddListener (cancelEvent);
-		cancelButton.onClick.AddListener (ClosePanel);
+		op3Button.onClick.RemoveAllListeners();
+		op3Button.onClick.AddListener (op3Event);
+		op3Button.onClick.AddListener (ClosePanel);
+
+		op4Button.onClick.RemoveAllListeners();
+		op4Button.onClick.AddListener (op4Event);
+		op4Button.onClick.AddListener (ClosePanel);
+
+		op5Button.onClick.RemoveAllListeners();
+		op5Button.onClick.AddListener (op5Event);
+		op5Button.onClick.AddListener (ClosePanel);
 
 		this.question.text = question;
 
 		this.iconImage.gameObject.SetActive (false);
-		yesButton.gameObject.SetActive (true);
-		noButton.gameObject.SetActive (true);
-		cancelButton.gameObject.SetActive (true);
+		op1Button.gameObject.SetActive (true);
+		op2Button.gameObject.SetActive (true);
+		op3Button.gameObject.SetActive (true);
+		op4Button.gameObject.SetActive (true);
+		op5Button.gameObject.SetActive (true);
 	}
 
 	void ClosePanel () {
 		modalPanelObject.SetActive (false);
-	}
-		
-	void OnEnable () {
-		transform.SetAsLastSibling ();
 	}
 }

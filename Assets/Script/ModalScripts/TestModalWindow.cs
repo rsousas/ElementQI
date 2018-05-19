@@ -8,35 +8,48 @@ public class TestModalWindow : MonoBehaviour {
 	private ModalPanel modalPanel;
 	private DisplayManager displayManager;
 
-	private UnityAction myYesAction;
-	private UnityAction myNoAction;
-	private UnityAction myCancelAction;
+	private UnityAction myOp1Action;
+	private UnityAction myOp2Action;
+	private UnityAction myOp3Action;
+	private UnityAction myOp4Action;
+	private UnityAction myOp5Action;
 
 	void Awake () {
 		modalPanel = ModalPanel.Instance ();
 		displayManager = DisplayManager.Instance ();
 
-		myYesAction = new UnityAction (TestYesFunction);
-		myNoAction = new UnityAction (TestNoFunction);
-		myCancelAction = new UnityAction (TestCancelFunction);
+		myOp1Action = new UnityAction (TestOp1Function);
+		myOp1Action = new UnityAction (TestOp2Function);
+		myOp1Action = new UnityAction (TestOp3Function);
+		myOp1Action = new UnityAction (TestOp4Function);
+		myOp1Action = new UnityAction (TestOp5Function);
 	}
 
 	//  Send to the Modal Panel to set up the Buttons and Functions to call
-	public void TestYNC () {
-		modalPanel.Choice ("Do you want to spawn this sphere?", TestYesFunction, TestNoFunction, TestCancelFunction);
+	public void TestOption () {
+		Debug.Log ("teste");	
+		modalPanel.Choice ("Qual o nome do elemento encontrado?", TestOp1Function, TestOp2Function, TestOp3Function, TestOp4Function, TestOp5Function);
 		//      modalPanel.Choice ("Would you like a poke in the eye?\nHow about with a sharp stick?", myYesAction, myNoAction, myCancelAction);
 	}
 
 	//  These are wrapped into UnityActions
-	void TestYesFunction () {
-		displayManager.DisplayMessage ("Heck yeah! Yup!");
+	void TestOp1Function () {
+		displayManager.DisplayMessage ("Voce clicou na opção 1!");
 	}
 
-	void TestNoFunction () {
-		displayManager.DisplayMessage ("No way, José!");
+	void TestOp2Function () {
+		displayManager.DisplayMessage ("Voce clicou na opção 2!");
 	}
 
-	void TestCancelFunction () {
-		displayManager.DisplayMessage ("I give up!");
+	void TestOp3Function () {
+		displayManager.DisplayMessage ("Voce clicou na opção 3!");
+	}
+
+	void TestOp4Function () {
+		displayManager.DisplayMessage ("Voce clicou na opção 4!");
+	}
+
+	void TestOp5Function () {
+		displayManager.DisplayMessage ("Voce clicou na opção 5!");
 	}
 }
