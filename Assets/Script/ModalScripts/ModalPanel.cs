@@ -55,7 +55,7 @@ public class ModalPanel : MonoBehaviour {
 
 		this.question.text = question;
 
-		this.iconImage.gameObject.SetActive (false);
+        this.iconImage.gameObject.SetActive (true);
 		op1Button.gameObject.SetActive (true);
 		op2Button.gameObject.SetActive (true);
 		op3Button.gameObject.SetActive (true);
