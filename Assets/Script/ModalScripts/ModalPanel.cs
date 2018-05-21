@@ -32,7 +32,7 @@ public class ModalPanel : MonoBehaviour {
 	// Options 1-5: A string, a options 1-5 events
 	public void Choice (string question, UnityAction op1Event, UnityAction op2Event, UnityAction op3Event, UnityAction op4Event, UnityAction op5Event) {
 		modalPanelObject.SetActive (true);
-
+	
 		op1Button.onClick.RemoveAllListeners();
 		op1Button.onClick.AddListener (op1Event);
 		op1Button.onClick.AddListener (ClosePanel);
@@ -64,6 +64,7 @@ public class ModalPanel : MonoBehaviour {
 	}
 
 	void ClosePanel () {
-		modalPanelObject.SetActive (false);
+		//modalPanelObject.SetActive (false);
 	}
+
 }

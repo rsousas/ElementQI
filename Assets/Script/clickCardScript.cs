@@ -10,13 +10,13 @@ public class clickCardScript : MonoBehaviour
 	private ModalPanel modalPanel;
 	private DisplayManager displayManager;
 
-	private UnityAction myOp1Action;
-	private UnityAction myOp2Action;
-	private UnityAction myOp3Action;
-	private UnityAction myOp4Action;
-	private UnityAction myOp5Action;
+	static UnityAction myOp1Action;
+	static UnityAction myOp2Action;
+	static UnityAction myOp3Action;
+	static UnityAction myOp4Action;
+	static UnityAction myOp5Action;
 
-	private int i, elemento; 
+	private int i, elemento;
 	private bool terminou;
 
 	// Use this for initialization
@@ -32,13 +32,10 @@ public class clickCardScript : MonoBehaviour
 	}
 
 	void OnMouseDown ()
-	{		
+	{				
 		if (elemento > 0) {
-			if (GeraGrids.player) {
-				Level1Script.scoresPlayer1 += 1;
-			} else {
-				Level1Script.scoresPlayer2 += 1;
-			}
+
+			AumentaScore (1);
 
 			GeraGrids.quantElemento [elemento] = GeraGrids.quantElemento [elemento] - 1;
 
@@ -52,21 +49,24 @@ public class clickCardScript : MonoBehaviour
 				}
 
 			}
-		}			
+		}	
+
+		GeraGrids.player = !GeraGrids.player; 	
+
+		Destroy (this.gameObject);
+	}
+
+	void verificaCompletou ()
+	{
 
 		terminou = true;
 		for (i = 0; i < GeraGrids.quantElemento.Length; i++)
 			if (GeraGrids.quantElemento [i] != 0)
 				terminou = false;
-		
+
 		if (terminou)
 			SceneManager.LoadScene (3);
 		
-
-
-		GeraGrids.player = !GeraGrids.player; 
-		Destroy (this.gameObject);
-	
 	}
 
 	public void SetTemElemento (int el)
@@ -74,43 +74,72 @@ public class clickCardScript : MonoBehaviour
 		elemento = el;
 	}
 
-	void Awake () {
+	void AumentaScore (int quant)
+	{
+		if (GeraGrids.player) {
+			Level1Script.scoresPlayer1 += quant;
+		} else {
+			Level1Script.scoresPlayer2 += quant;
+		}
+	}
+
+	void Awake ()
+	{
 		modalPanel = ModalPanel.Instance ();
 		displayManager = DisplayManager.Instance ();
 
 		myOp1Action = new UnityAction (TestOp1Function);
-		myOp1Action = new UnityAction (TestOp2Function);
-		myOp1Action = new UnityAction (TestOp3Function);
-		myOp1Action = new UnityAction (TestOp4Function);
-		myOp1Action = new UnityAction (TestOp5Function);
+		myOp2Action = new UnityAction (TestOp2Function);
+		myOp3Action = new UnityAction (TestOp3Function);
+		myOp4Action = new UnityAction (TestOp4Function);
+		myOp5Action = new UnityAction (TestOp5Function);
 	}
 
+
 	//  Send to the Modal Panel to set up the Buttons and Functions to call
-	public void TestOption () {
-		Debug.Log ("teste");	
-		modalPanel.Choice ("Qual o nome do elemento encontrado?", TestOp1Function, TestOp2Function, TestOp3Function, TestOp4Function, TestOp5Function);
-		//      modalPanel.Choice ("Would you like a poke in the eye?\nHow about with a sharp stick?", myYesAction, myNoAction, myCancelAction);
+	public void TestOption ()
+	{
+		modalPanel.Choice ("Qual o nome do elemento encontrado?", myOp1Action, myOp2Action, myOp3Action, myOp4Action, myOp5Action);
 	}
 
 	//  These are wrapped into UnityActions
-	void TestOp1Function () {
-		displayManager.DisplayMessage ("Voce clicou na opção 1!");
+	void TestOp1Function ()
+	{
+		RightOption (modalPanel.op1Button);
 	}
 
-	void TestOp2Function () {
-		displayManager.DisplayMessage ("Voce clicou na opção 2!");
+	void TestOp2Function ()
+	{
+		RightOption (modalPanel.op2Button);
 	}
 
-	void TestOp3Function () {
-		displayManager.DisplayMessage ("Voce clicou na opção 3!");
+	void TestOp3Function ()
+	{
+		RightOption (modalPanel.op3Button);
 	}
 
-	void TestOp4Function () {
-		displayManager.DisplayMessage ("Voce clicou na opção 4!");
+	void TestOp4Function ()
+	{
+		RightOption (modalPanel.op4Button);
 	}
 
-	void TestOp5Function () {
-		displayManager.DisplayMessage ("Voce clicou na opção 5!");
+	void TestOp5Function ()
+	{
+		RightOption (modalPanel.op5Button);
+	}
+
+	void RightOption (Button optionSelected)
+	{
+		if (optionSelected.GetComponentInChildren<Text> ().text == "Água") {
+			AumentaScore (5);
+			modalPanel.modalPanelObject.SetActive (false);
+			displayManager.DisplayMessage ("Voce acertou!");			
+			verificaCompletou ();
+		} else {			
+			optionSelected.interactable = false;			
+		}
+			
 	}
 		
+				
 }
