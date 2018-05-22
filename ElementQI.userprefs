@@ -1,12 +1,12 @@
-﻿<Properties StartupItem="ElementQI.csproj">
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\clickCardScript.cs">
     <Files>
-      <File FileName="Assets\Script\ModalScripts\BringToFront.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\ModalScripts\BringToFront.cs" Line="9" Column="3" />
       <File FileName="Assets\Script\ModalScripts\DisplayManager.cs" Line="43" Column="34" />
-      <File FileName="Assets\Script\ModalScripts\ModalPanel.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\clickCardScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\GeraGrids.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\ModalScripts\ModalPanel.cs" Line="37" Column="1" />
+      <File FileName="Assets\Script\clickCardScript.cs" Line="170" Column="6" />
+      <File FileName="Assets\Script\GeraGrids.cs" Line="65" Column="25" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

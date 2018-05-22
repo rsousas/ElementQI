@@ -45,12 +45,16 @@ public class GeraGrids : MonoBehaviour
 
     public static Transform blocks;
 
+	 public  string[] respostasCerta;
+	public static string[] respostaCerta;
+
     void Start ()
 	{
 		Map = new Vector2[tamX, tamY];
 		MaiorElemento = new Vector2[(int)posElemento [posElemento.Length - 1].z]; 
 		PosRandElemento = new Vector2[(int)posElemento [posElemento.Length - 1].z];
 		quantElemento = new int[(int)posElemento [posElemento.Length - 1].z + 1];
+		respostaCerta = respostasCerta;
 
         blocks = new GameObject("Blocks").transform;
         blocks.transform.SetParent(this.transform);
@@ -58,7 +62,7 @@ public class GeraGrids : MonoBehaviour
 		posIniY = tamY * posIniY;
 		gerarGrid ();
 		geraFundoErro ();
-		geraFundoElemento ();
+		geraFundoElemento (); 
 		geraCard ();
 	}
 

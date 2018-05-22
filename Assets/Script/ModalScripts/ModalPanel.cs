@@ -8,6 +8,7 @@ public class ModalPanel : MonoBehaviour {
 
 	public Text question;
 	public Image iconImage;
+	public int element;
 
 	public Button op1Button;
 	public Button op2Button;
@@ -30,7 +31,9 @@ public class ModalPanel : MonoBehaviour {
 	}
 
 	// Options 1-5: A string, a options 1-5 events
-	public void Choice (string question, UnityAction op1Event, UnityAction op2Event, UnityAction op3Event, UnityAction op4Event, UnityAction op5Event) {
+	public void Choice (string question, int elemento, UnityAction op1Event, UnityAction op2Event, UnityAction op3Event, UnityAction op4Event, UnityAction op5Event) {
+		element = elemento;
+
 		modalPanelObject.SetActive (true);
 	
 		op1Button.onClick.RemoveAllListeners();
@@ -54,6 +57,8 @@ public class ModalPanel : MonoBehaviour {
 		op5Button.onClick.AddListener (ClosePanel);
 
 		this.question.text = question;
+
+		this.op4Button.GetComponentInChildren<Text> ().text = GeraGrids.respostaCerta[elemento];
 
         this.iconImage.gameObject.SetActive (true);
 		op1Button.gameObject.SetActive (true);

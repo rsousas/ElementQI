@@ -9,6 +9,7 @@ public class clickCardScript : MonoBehaviour
 {
 	private ModalPanel modalPanel;
 	private DisplayManager displayManager;
+	private BringToFront bringToFront;
 
 	static UnityAction myOp1Action;
 	static UnityAction myOp2Action;
@@ -18,7 +19,8 @@ public class clickCardScript : MonoBehaviour
 
     private string vezDoJogador;
 
-	private int i, elemento;
+	private int elemento;
+	private int i;
 	private bool terminou;
 
 	// Use this for initialization
@@ -34,7 +36,8 @@ public class clickCardScript : MonoBehaviour
     }
 
 	void OnMouseDown ()
-	{				
+	{		
+		
 		if (elemento > 0) {
 
 			AumentaScore (1);
@@ -42,13 +45,11 @@ public class clickCardScript : MonoBehaviour
 			GeraGrids.quantElemento [elemento] = GeraGrids.quantElemento [elemento] - 1;
 
 			if (GeraGrids.quantElemento [elemento] == 0) {
-				if (GeraGrids.player) {
-					Debug.Log ("Aqui aparece um questionário para o player 1");
+				if (GeraGrids.player) {					
 					TestOption ();
                     //para retornar ao player que acertou
                     //changePlayer();
                 } else {
-					Debug.Log ("Aqui aparece um questionário para o player 2");
 					TestOption ();
                     //para retornar ao player que acertou
                     //changePlayer();
@@ -71,11 +72,9 @@ public class clickCardScript : MonoBehaviour
     {
         GeraGrids.player = !GeraGrids.player;
         if (GeraGrids.player) {
-            Debug.Log(1);
             displayManager.DisplayMessage("Vez do Jogador 1");
         }
         else {
-            Debug.Log(2);
             displayManager.DisplayMessage("Vez do Jogador 2");
         }
     }
@@ -128,45 +127,47 @@ public class clickCardScript : MonoBehaviour
         if (GeraGrids.player)
             vezDoJogador = " Vez do Jogador 1";
 
-        modalPanel.Choice ("\n" + vezDoJogador + "\n Qual o nome do elemento encontrado?", myOp1Action, myOp2Action, myOp3Action, myOp4Action, myOp5Action);
+		modalPanel.Choice ("\n" + vezDoJogador + "\n Qual o nome do elemento encontrado?", elemento-1, myOp1Action, myOp2Action, myOp3Action, myOp4Action, myOp5Action);
 	}
 
 	//  These are wrapped into UnityActions
 	void TestOp1Function ()
 	{
         changePlayer();
-        RightOption (modalPanel.op1Button);
+		RightOption (modalPanel.op1Button);
 	}
 
 	void TestOp2Function ()
 	{
         changePlayer();
-        RightOption (modalPanel.op2Button);
+		RightOption (modalPanel.op2Button);
 	}
 
 	void TestOp3Function ()
 	{
         changePlayer();
-        RightOption (modalPanel.op3Button);
+		RightOption (modalPanel.op3Button);
 	}
 
 	void TestOp4Function ()
 	{
         changePlayer();
-        RightOption (modalPanel.op4Button);
+		RightOption (modalPanel.op4Button);
 	}
 
 	void TestOp5Function ()
 	{
         changePlayer();
-        RightOption (modalPanel.op5Button);
+		RightOption (modalPanel.op5Button);
 	}
 
 	void RightOption (Button optionSelected)
 	{
-        if (optionSelected.GetComponentInChildren<Text> ().text == "Água") {
+
+		if (optionSelected.GetComponentInChildren<Text> ().text == GeraGrids.respostaCerta[modalPanel.element) {
             changePlayer();
             AumentaScore (5);
+			//Destroy (modalPanel.modalPanelObject);
 			modalPanel.modalPanelObject.SetActive (false);
             GeraGrids.blocks.gameObject.SetActive(true);
             displayManager.DisplayMessage ("Voce acertou!");			
