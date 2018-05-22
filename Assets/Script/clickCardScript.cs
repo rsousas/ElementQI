@@ -123,6 +123,7 @@ public class clickCardScript : MonoBehaviour
 	//  Send to the Modal Panel to set up the Buttons and Functions to call
 	public void TestOption ()
 	{
+        GeraGrids.blocks.gameObject.SetActive(false);
         vezDoJogador = " Vez do Jogador 2";
         if (GeraGrids.player)
             vezDoJogador = " Vez do Jogador 1";
@@ -167,7 +168,8 @@ public class clickCardScript : MonoBehaviour
             changePlayer();
             AumentaScore (5);
 			modalPanel.modalPanelObject.SetActive (false);
-			displayManager.DisplayMessage ("Voce acertou!");			
+            GeraGrids.blocks.gameObject.SetActive(true);
+            displayManager.DisplayMessage ("Voce acertou!");			
 			verificaCompletou ();
 		} else {    
             modalPanel.question.text = "\n Vez do Jogador 2 \n Qual o nome do elemento encontrado?";
