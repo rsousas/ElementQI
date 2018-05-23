@@ -17,23 +17,23 @@ public class clickCardScript : MonoBehaviour
 	static UnityAction myOp4Action;
 	static UnityAction myOp5Action;
 
-    private string vezDoJogador;
+	private string vezDoJogador;
 
 	private int elemento;
 	private int i;
 	private bool terminou;
 
 	// Use this for initialization
-	 void Start ()
-	 {
-        displayManager.DisplayMessage("Vez do Jogador 1");
-     }
+	void Start ()
+	{
+		displayManager.DisplayMessage ("Vez do Jogador 1");
+	}
 
 	// Update is called once per frame
 	void Update ()
 	{
         
-    }
+	}
 
 	void OnMouseDown ()
 	{		
@@ -47,39 +47,34 @@ public class clickCardScript : MonoBehaviour
 			if (GeraGrids.quantElemento [elemento] == 0) {
 				if (GeraGrids.player) {					
 					TestOption ();
-                    //para retornar ao player que acertou
-                    //changePlayer();
-                } else {
+					//para retornar ao player que acertou
+					//changePlayer();
+				} else {
 					TestOption ();
-                    //para retornar ao player que acertou
-                    //changePlayer();
-                }
-            }
-            else
-            {
-                changePlayer();
-            }
-        }
-        else
-        {
-            changePlayer();
-        }
+					//para retornar ao player que acertou
+					//changePlayer();
+				}
+			} else {
+				changePlayer ();
+			}
+		} else {
+			changePlayer ();
+		}
 
-        Destroy (this.gameObject);
+		Destroy (this.gameObject);
 	}
 
-    private void changePlayer()
-    {
-        GeraGrids.player = !GeraGrids.player;
-        if (GeraGrids.player) {
-            displayManager.DisplayMessage("Vez do Jogador 1");
-        }
-        else {
-            displayManager.DisplayMessage("Vez do Jogador 2");
-        }
-    }
+	private void changePlayer ()
+	{
+		GeraGrids.player = !GeraGrids.player;
+		if (GeraGrids.player) {
+			displayManager.DisplayMessage ("Vez do Jogador 1");
+		} else {
+			displayManager.DisplayMessage ("Vez do Jogador 2");
+		}
+	}
 
-    void verificaCompletou ()
+	void verificaCompletou ()
 	{
 
 		terminou = true;
@@ -122,62 +117,66 @@ public class clickCardScript : MonoBehaviour
 	//  Send to the Modal Panel to set up the Buttons and Functions to call
 	public void TestOption ()
 	{
-        GeraGrids.blocks.gameObject.SetActive(false);
-        vezDoJogador = " Vez do Jogador 2";
-        if (GeraGrids.player)
-            vezDoJogador = " Vez do Jogador 1";
+		GeraGrids.blocks.gameObject.SetActive (false);
+		vezDoJogador = " Vez do Jogador 2";
+		if (GeraGrids.player)
+			vezDoJogador = " Vez do Jogador 1";
 
-		modalPanel.Choice ("\n" + vezDoJogador + "\n Qual o nome do elemento encontrado?", elemento-1, myOp1Action, myOp2Action, myOp3Action, myOp4Action, myOp5Action);
+		modalPanel.Choice ("\n Qual o nome do elemento encontrado?", elemento - 1, myOp1Action, myOp2Action, myOp3Action, myOp4Action, myOp5Action);
 	}
 
 	//  These are wrapped into UnityActions
 	void TestOp1Function ()
 	{
-        changePlayer();
+		changePlayer ();
 		RightOption (modalPanel.op1Button);
 	}
 
 	void TestOp2Function ()
 	{
-        changePlayer();
+		changePlayer ();
 		RightOption (modalPanel.op2Button);
 	}
 
 	void TestOp3Function ()
 	{
-        changePlayer();
+		changePlayer ();
 		RightOption (modalPanel.op3Button);
 	}
 
 	void TestOp4Function ()
 	{
-        changePlayer();
+		changePlayer ();
 		RightOption (modalPanel.op4Button);
 	}
 
 	void TestOp5Function ()
 	{
-        changePlayer();
+		changePlayer ();
 		RightOption (modalPanel.op5Button);
 	}
 
 	void RightOption (Button optionSelected)
 	{
 
-		if (optionSelected.GetComponentInChildren<Text> ().text == GeraGrids.respostaCerta[modalPanel.element) {
-            changePlayer();
-            AumentaScore (5);
-			//Destroy (modalPanel.modalPanelObject);
+		if (optionSelected.GetComponentInChildren<Text> ().text == GeraGrids.respostaCerta [modalPanel.element]) {
+            
+			changePlayer ();
+			AumentaScore (5);
 			modalPanel.modalPanelObject.SetActive (false);
-            GeraGrids.blocks.gameObject.SetActive(true);
-            displayManager.DisplayMessage ("Voce acertou!");			
+			GeraGrids.blocks.gameObject.SetActive (true);
+			displayManager.DisplayMessage ("Voce acertou!");			
 			verificaCompletou ();
+
 		} else {    
-            modalPanel.question.text = "\n Vez do Jogador 2 \n Qual o nome do elemento encontrado?";
-            if (GeraGrids.player)
-                modalPanel.question.text = "\n Vez do Jogador 1 \n Qual o nome do elemento encontrado?";
-          
-            optionSelected.interactable = false;			
+			
+			modalPanel.question.text = "Qual o nome do elemento encontrado?";
+			if (GeraGrids.player)
+				modalPanel.question.text = "Qual o nome do elemento encontrado?";
+
+			//optionSelected.gameObject.SetActive (false);
+			optionSelected.interactable = false;	
+
 		}
 			
 	}

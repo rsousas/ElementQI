@@ -22,9 +22,9 @@ public class GeraGrids : MonoBehaviour
 	public GameObject ObjetoGrid;
 	public GameObject ObjetoErro;
 	public GameObject ObjetoCard;
-    public GameObject[] ObjetoElemento;
+	public GameObject[] ObjetoElemento;
 
-    public int tamX;
+	public int tamX;
 	public int tamY;
 	public Vector4[] posElemento;
 	// vetor.x e vetor.y: Posições do elemento na grade; vetor.z: Elemento completo a qual representa; vetor.w: Prefab que deve ser impresso (imagem)
@@ -41,24 +41,28 @@ public class GeraGrids : MonoBehaviour
 
 	//Manipula payer
 	public static bool player = true;
-    // Use this for initialization
+	// Use this for initialization
 
-    public static Transform blocks;
+	public static Transform blocks;
 
-	 public  string[] respostasCerta;
+	public string[] respostasCerta;
 	public static string[] respostaCerta;
 
-    void Start ()
+	public Sprite[] imagensElemento;
+	public static Sprite[] imagemElemento;
+
+	void Start ()
 	{
 		Map = new Vector2[tamX, tamY];
 		MaiorElemento = new Vector2[(int)posElemento [posElemento.Length - 1].z]; 
 		PosRandElemento = new Vector2[(int)posElemento [posElemento.Length - 1].z];
 		quantElemento = new int[(int)posElemento [posElemento.Length - 1].z + 1];
 		respostaCerta = respostasCerta;
+		imagemElemento = imagensElemento;
 
-        blocks = new GameObject("Blocks").transform;
-        blocks.transform.SetParent(this.transform);
-        posIniX = tamX * posIniX;
+		blocks = new GameObject ("Blocks").transform;
+		blocks.transform.SetParent (this.transform);
+		posIniX = tamX * posIniX;
 		posIniY = tamY * posIniY;
 		gerarGrid ();
 		geraFundoErro ();
@@ -69,7 +73,7 @@ public class GeraGrids : MonoBehaviour
 	void Update ()
 	{
 		
-	}		
+	}
 
 	void gerarGrid ()
 	{
@@ -187,10 +191,10 @@ public class GeraGrids : MonoBehaviour
 		for (posX = 0; posX < tamX; posX++) {
 			for (posY = 0; posY < tamY; posY++) {
 				if (Map [posX, posY].x != -1) {
-                    GameObject blockTemporario = Instantiate(ObjetoGrid, new Vector3 (posX * 0.6f - posIniX, posY * 0.6f - posIniY, 0), Quaternion.identity) as GameObject;
-                    blockTemporario.transform.SetParent(blocks);
-                }
-            }
+					GameObject blockTemporario = Instantiate (ObjetoGrid, new Vector3 (posX * 0.6f - posIniX, posY * 0.6f - posIniY, 0), Quaternion.identity) as GameObject;
+					blockTemporario.transform.SetParent (blocks);
+				}
+			}
 		}
 	}
 
@@ -199,12 +203,11 @@ public class GeraGrids : MonoBehaviour
 	{
 		for (posX = 0; posX < tamX; posX++) {
 			for (posY = 0; posY < tamY; posY++) {
-                if (Map[posX, posY].x == 0)
-                {
-                    GameObject blockTemporario = Instantiate(ObjetoErro, new Vector3(posX * 0.6f - posIniX, posY * 0.6f - posIniY, -0.01f), Quaternion.identity) as GameObject;
-                    blockTemporario.transform.SetParent(blocks);
-                }
-            }
+				if (Map [posX, posY].x == 0) {
+					GameObject blockTemporario = Instantiate (ObjetoErro, new Vector3 (posX * 0.6f - posIniX, posY * 0.6f - posIniY, -0.01f), Quaternion.identity) as GameObject;
+					blockTemporario.transform.SetParent (blocks);
+				}
+			}
 		}
 	}
 
@@ -213,12 +216,11 @@ public class GeraGrids : MonoBehaviour
 	{
 		for (posX = 0; posX < tamX; posX++) {
 			for (posY = 0; posY < tamY; posY++) {
-                if (Map[posX, posY].x > 0)
-                {
-                    GameObject blockTemporario = Instantiate(ObjetoElemento[(int)Map[posX, posY].y], new Vector3(posX * 0.6f - posIniX, posY * 0.6f - posIniY, -0.01f), Quaternion.identity) as GameObject;
-                    blockTemporario.transform.SetParent(blocks);
-                }
-            }
+				if (Map [posX, posY].x > 0) {
+					GameObject blockTemporario = Instantiate (ObjetoElemento [(int)Map [posX, posY].y], new Vector3 (posX * 0.6f - posIniX, posY * 0.6f - posIniY, -0.01f), Quaternion.identity) as GameObject;
+					blockTemporario.transform.SetParent (blocks);
+				}
+			}
 		}		
 	}
 
@@ -227,12 +229,11 @@ public class GeraGrids : MonoBehaviour
 	{
 		for (posX = 0; posX < tamX; posX++) {
 			for (posY = 0; posY < tamY; posY++) {
-                if (Map[posX, posY].x != -1)
-                {
-                    obj = (Instantiate(ObjetoCard, new Vector3(posX * 0.6f - posIniX, posY * 0.6f - posIniY, -0.02f), Quaternion.identity)) as GameObject;
-                    obj.transform.SetParent(blocks);
-                }
-                if (Map [posX, posY].x > 0) {
+				if (Map [posX, posY].x != -1) {
+					obj = (Instantiate (ObjetoCard, new Vector3 (posX * 0.6f - posIniX, posY * 0.6f - posIniY, -0.02f), Quaternion.identity)) as GameObject;
+					obj.transform.SetParent (blocks);
+				}
+				if (Map [posX, posY].x > 0) {
 					obj.GetComponent<clickCardScript> ().SetTemElemento ((int)Map [posX, posY].x);
 					quantElemento [(int)Map [posX, posY].x] = quantElemento [(int)Map [posX, posY].x] + 1;
 				}
