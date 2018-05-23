@@ -12,7 +12,13 @@ public class DisplayManager : MonoBehaviour {
 
 	private static DisplayManager displayManager;
 
-	public static DisplayManager Instance () {
+	// Update is called once per frame
+	void Update ()
+	{
+
+	}
+
+	/*public static DisplayManager Instance () {
 		if (!displayManager) {
 			displayManager = FindObjectOfType(typeof (DisplayManager)) as DisplayManager;
 			if (!displayManager)
@@ -22,8 +28,8 @@ public class DisplayManager : MonoBehaviour {
 		return displayManager;
 	}
 
-	public void DisplayMessage (string message) {
-		displayText.text = message;
+	 public void DisplayMessage (string message) {
+	//	displayText.text = message;
 		SetAlpha ();
 	}
 
@@ -49,5 +55,5 @@ public class DisplayManager : MonoBehaviour {
 			yield return null;
 		}
 		yield return null;
-	}
+	} */
 }

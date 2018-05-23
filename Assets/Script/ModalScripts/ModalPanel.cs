@@ -19,6 +19,7 @@ public class ModalPanel : MonoBehaviour
 	public Button op5Button;
 
 	public GameObject modalPanelObject;
+	public GameObject canvasObject;
 
 	private static ModalPanel modalPanel;
 
@@ -34,31 +35,27 @@ public class ModalPanel : MonoBehaviour
 	}
 
 	// Options 1-5: A string, a options 1-5 events
-	public void Choice (string question, int elemento, UnityAction op1Event, UnityAction op2Event, UnityAction op3Event, UnityAction op4Event, UnityAction op5Event)
+	public void Choice (string question, int elemento)
 	{
 		element = elemento;
 
+		canvasObject.SetActive (true);
 		modalPanelObject.SetActive (true);
 	
 		op1Button.onClick.RemoveAllListeners ();
-		op1Button.onClick.AddListener (op1Event);
-		op1Button.onClick.AddListener (ClosePanel);
+		op1Button.onClick.AddListener (TestOp1Function);
 
 		op2Button.onClick.RemoveAllListeners ();
-		op2Button.onClick.AddListener (op2Event);
-		op2Button.onClick.AddListener (ClosePanel);
+		op2Button.onClick.AddListener (TestOp2Function);
 
 		op3Button.onClick.RemoveAllListeners ();
-		op3Button.onClick.AddListener (op3Event);
-		op3Button.onClick.AddListener (ClosePanel);
+		op3Button.onClick.AddListener (TestOp3Function);
 
 		op4Button.onClick.RemoveAllListeners ();
-		op4Button.onClick.AddListener (op4Event);
-		op4Button.onClick.AddListener (ClosePanel);
+		op4Button.onClick.AddListener (TestOp4Function);
 
 		op5Button.onClick.RemoveAllListeners ();
-		op5Button.onClick.AddListener (op5Event);
-		op5Button.onClick.AddListener (ClosePanel);
+		op5Button.onClick.AddListener (TestOp5Function);
 
 		this.iconImage.gameObject.GetComponent<Image> ().sprite = GeraGrids.imagemElemento [elemento];
 		this.question.text = question;
@@ -78,9 +75,61 @@ public class ModalPanel : MonoBehaviour
 		op5Button.interactable = true;
 	}
 
-	void ClosePanel ()
+
+	//  These are wrapped into UnityActions
+	void TestOp1Function ()
 	{
-		//modalPanelObject.SetActive (false);
+		
+		RightOption (modalPanel.op1Button);
+	}
+
+	void TestOp2Function ()
+	{
+		
+		RightOption (modalPanel.op2Button);
+	}
+
+	void TestOp3Function ()
+	{
+		
+		RightOption (modalPanel.op3Button);
+	}
+
+	void TestOp4Function ()
+	{
+		
+		RightOption (modalPanel.op4Button);
+	}
+
+	void TestOp5Function ()
+	{		
+		
+		RightOption (modalPanel.op5Button);
+	}
+
+	void RightOption (Button optionSelected)
+	{
+
+
+		if (optionSelected.GetComponentInChildren<Text> ().text == GeraGrids.respostaCerta [modalPanel.element]) {
+			AudioScript.PlaySound("acerto");
+			AudioScript.PlaySound("aplausos");
+			clickCardScript.AumentaScore (5);
+			modalPanelObject.SetActive (false);
+			canvasObject.SetActive (false);
+			GeraGrids.blocks.gameObject.SetActive (true);
+			//			displayManager.DisplayMessage ("Voce acertou!");			
+			clickCardScript.verificaCompletou ();
+
+		} else {    
+			AudioScript.PlaySound("erro");
+
+			//optionSelected.gameObject.SetActive (false);
+			optionSelected.interactable = false;	
+
+		}
+		clickCardScript.changePlayer ();
+
 	}
 
 }

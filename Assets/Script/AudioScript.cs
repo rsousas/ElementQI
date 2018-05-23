@@ -36,10 +36,6 @@ public class AudioScript : MonoBehaviour {
             case "questionario":
                 audioSrc.PlayOneShot(questionario);
                 break;
-            case "musica":
-                audioSrc.PlayOneShot(musica);
-                break;
-
         }
     }
 }

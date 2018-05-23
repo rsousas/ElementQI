@@ -20,13 +20,13 @@ public class clickCardScript : MonoBehaviour
 	private string vezDoJogador;
 
 	private int elemento;
-	private int i;
-	private bool terminou;
+	public static int i;
+	public static bool terminou;
 
 	// Use this for initialization
 	void Start ()
 	{
-		displayManager.DisplayMessage ("Vez do Jogador 1");
+//		displayManager.DisplayMessage ("Vez do Jogador 1");
 	}
 
 	// Update is called once per frame
@@ -66,17 +66,17 @@ public class clickCardScript : MonoBehaviour
 		Destroy (this.gameObject);
 	}
 
-	private void changePlayer ()
+	public static void changePlayer ()
 	{
 		GeraGrids.player = !GeraGrids.player;
-		if (GeraGrids.player) {
-			displayManager.DisplayMessage ("Vez do Jogador 1");
+	/*	if (GeraGrids.player) {
+//			displayManager.DisplayMessage ("Vez do Jogador 1");
 		} else {
-			displayManager.DisplayMessage ("Vez do Jogador 2");
-		}
+//			displayManager.DisplayMessage ("Vez do Jogador 2");
+		}*/
 	}
 
-	void verificaCompletou ()
+	public static void verificaCompletou ()
 	{
 
 		terminou = true;
@@ -85,7 +85,7 @@ public class clickCardScript : MonoBehaviour
 				terminou = false;
 
 		if (terminou)
-			SceneManager.LoadScene (3);
+			SceneManager.LoadScene (GeraGrids.qualCena);
 		
 	}
 
@@ -94,7 +94,7 @@ public class clickCardScript : MonoBehaviour
 		elemento = el;
 	}
 
-	void AumentaScore (int quant)
+	public static void AumentaScore (int quant)
 	{
 		if (GeraGrids.player) {
 			Level1Script.scoresPlayer1 += quant;
@@ -106,13 +106,13 @@ public class clickCardScript : MonoBehaviour
 	void Awake ()
 	{
 		modalPanel = ModalPanel.Instance ();
-		displayManager = DisplayManager.Instance ();
+//		displayManager = DisplayManager.Instance ();
 
-		myOp1Action = new UnityAction (TestOp1Function);
+/*		myOp1Action = new UnityAction (TestOp1Function);
 		myOp2Action = new UnityAction (TestOp2Function);
 		myOp3Action = new UnityAction (TestOp3Function);
 		myOp4Action = new UnityAction (TestOp4Function);
-		myOp5Action = new UnityAction (TestOp5Function);
+		myOp5Action = new UnityAction (TestOp5Function);*/
 	}
 
 
@@ -120,69 +120,15 @@ public class clickCardScript : MonoBehaviour
 	public void TestOption ()
 	{
 		GeraGrids.blocks.gameObject.SetActive (false);
+
 		vezDoJogador = " Vez do Jogador 2";
 		if (GeraGrids.player)
 			vezDoJogador = " Vez do Jogador 1";
       
-        modalPanel.Choice ("\n Qual o nome do elemento encontrado?", elemento - 1, myOp1Action, myOp2Action, myOp3Action, myOp4Action, myOp5Action);
+        modalPanel.Choice ("\n Qual o nome do elemento encontrado?", elemento - 1);
 	}
 
-	//  These are wrapped into UnityActions
-	void TestOp1Function ()
-	{
-		changePlayer ();
-		RightOption (modalPanel.op1Button);
-	}
 
-	void TestOp2Function ()
-	{
-		changePlayer ();
-		RightOption (modalPanel.op2Button);
-	}
-
-	void TestOp3Function ()
-	{
-		changePlayer ();
-		RightOption (modalPanel.op3Button);
-	}
-
-	void TestOp4Function ()
-	{
-		changePlayer ();
-		RightOption (modalPanel.op4Button);
-	}
-
-	void TestOp5Function ()
-	{
-		changePlayer ();
-		RightOption (modalPanel.op5Button);
-	}
-
-	void RightOption (Button optionSelected)
-	{
-
-		if (optionSelected.GetComponentInChildren<Text> ().text == GeraGrids.respostaCerta [modalPanel.element]) {
-            
-			changePlayer ();
-            AudioScript.PlaySound("aplausos");
-            AumentaScore (5);
-			modalPanel.modalPanelObject.SetActive (false);
-			GeraGrids.blocks.gameObject.SetActive (true);
-			displayManager.DisplayMessage ("Voce acertou!");			
-			verificaCompletou ();
-
-		} else {    
-			
-			modalPanel.question.text = "Qual o nome do elemento encontrado?";
-			if (GeraGrids.player)
-				modalPanel.question.text = "Qual o nome do elemento encontrado?";
-
-			//optionSelected.gameObject.SetActive (false);
-			optionSelected.interactable = false;	
-
-		}
-			
-	}
 		
 				
 }

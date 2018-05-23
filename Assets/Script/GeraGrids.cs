@@ -51,6 +51,9 @@ public class GeraGrids : MonoBehaviour
 	public Sprite[] imagensElemento;
 	public static Sprite[] imagemElemento;
 
+	public int qualCenas;
+	public static int qualCena;
+
 	void Start ()
 	{
 		Map = new Vector2[tamX, tamY];
@@ -59,6 +62,7 @@ public class GeraGrids : MonoBehaviour
 		quantElemento = new int[(int)posElemento [posElemento.Length - 1].z + 1];
 		respostaCerta = respostasCerta;
 		imagemElemento = imagensElemento;
+		qualCena = qualCenas;
 
 		blocks = new GameObject ("Blocks").transform;
 		blocks.transform.SetParent (this.transform);
