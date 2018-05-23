@@ -439,6 +439,10 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 1, w: 0}
   - {x: 1, y: 0, z: 1, w: 1}
   - {x: 2, y: 0, z: 1, w: 0}
+  respostasCerta:
+  - "\xC1gua"
+  imagensElemento:
+  - {fileID: 21300000, guid: 9f400ef630503b94391b066921a32f6a, type: 3}
 --- !u!1 &403603889
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,6 +941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   question: {fileID: 899314256}
   iconImage: {fileID: 645222573}
+  element: 0
   op1Button: {fileID: 1507468204}
   op2Button: {fileID: 604421748}
   op3Button: {fileID: 2006581526}
