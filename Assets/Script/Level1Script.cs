@@ -11,6 +11,7 @@ public class Level1Script : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        AudioScript.PlaySound("musica");
         styleTurn.normal.textColor = Color.green;
         styleWait.normal.textColor = Color.black;
     }

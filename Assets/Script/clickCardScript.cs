@@ -39,13 +39,14 @@ public class clickCardScript : MonoBehaviour
 	{		
 		
 		if (elemento > 0) {
-
-			AumentaScore (1);
+            AudioScript.PlaySound("acerto");
+            AumentaScore (1);
 
 			GeraGrids.quantElemento [elemento] = GeraGrids.quantElemento [elemento] - 1;
 
 			if (GeraGrids.quantElemento [elemento] == 0) {
-				if (GeraGrids.player) {					
+                AudioScript.PlaySound("questionario");
+                if (GeraGrids.player) {					
 					TestOption ();
 					//para retornar ao player que acertou
 					//changePlayer();
@@ -54,11 +55,12 @@ public class clickCardScript : MonoBehaviour
 					//para retornar ao player que acertou
 					//changePlayer();
 				}
-			} else {
-				changePlayer ();
+			} else {           
+                changePlayer ();
 			}
 		} else {
-			changePlayer ();
+            AudioScript.PlaySound("erro");
+            changePlayer ();
 		}
 
 		Destroy (this.gameObject);
@@ -121,8 +123,8 @@ public class clickCardScript : MonoBehaviour
 		vezDoJogador = " Vez do Jogador 2";
 		if (GeraGrids.player)
 			vezDoJogador = " Vez do Jogador 1";
-
-		modalPanel.Choice ("\n Qual o nome do elemento encontrado?", elemento - 1, myOp1Action, myOp2Action, myOp3Action, myOp4Action, myOp5Action);
+      
+        modalPanel.Choice ("\n Qual o nome do elemento encontrado?", elemento - 1, myOp1Action, myOp2Action, myOp3Action, myOp4Action, myOp5Action);
 	}
 
 	//  These are wrapped into UnityActions
@@ -162,7 +164,8 @@ public class clickCardScript : MonoBehaviour
 		if (optionSelected.GetComponentInChildren<Text> ().text == GeraGrids.respostaCerta [modalPanel.element]) {
             
 			changePlayer ();
-			AumentaScore (5);
+            AudioScript.PlaySound("aplausos");
+            AumentaScore (5);
 			modalPanel.modalPanelObject.SetActive (false);
 			GeraGrids.blocks.gameObject.SetActive (true);
 			displayManager.DisplayMessage ("Voce acertou!");			

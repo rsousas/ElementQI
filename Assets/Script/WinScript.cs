@@ -9,10 +9,10 @@ public class WinScript : MonoBehaviour {
 	private int buttonHeight = 50;
     private string winner;
 
-	// Use this for initialization
-	void Start () {
-
-	}
+    // Use this for initialization
+    void Start () {
+        AudioScript.PlaySound("aplausos");
+    }
 
 	// Update is called once per frame
 	void Update () {
